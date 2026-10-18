@@ -1,0 +1,44 @@
+/* a11y */
+[aria-hidden='false'][hidden]:not(:focus) {
+  clip: rect(0, 0, 0, 0);
+  display: inherit;
+  position: absolute;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+*:not(a):not(button):not(input):not(textarea):not(select):focus {
+  outline: var(--a11y-outline);
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  &:focus {
+    outline: 0;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: -200px;
+  left: -200px;
+  &:focus {
+    top: 37px;
+    left: 0px;
+    z-index: 20;
+  }
+}

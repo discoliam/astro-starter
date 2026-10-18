@@ -1,0 +1,6 @@
+.Block {
+  padding-top: var(--flow);
+  &:first-child {
+    padding-top: 0;
+  }
+}

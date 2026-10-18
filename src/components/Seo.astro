@@ -1,0 +1,136 @@
+---
+// <head> tags for search engines and social sharing. Rendered by Layout.astro;
+// values come from page frontmatter, falling back to src/data/site.js.
+import { site } from "../data/site";
+import { getNavigation } from "../utils/navigation";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description = site.info.description,
+  image = site.seo.defaultImage,
+  imageAlt = image === site.seo.defaultImage ? site.seo.defaultImageAlt : title,
+  noindex = false,
+  type = "website",
+} = Astro.props;
+
+const isHome = Astro.url.pathname === "/";
+const pageTitle =
+  title && !isHome
+    ? site.seo.titleTemplate.replace("%s", title)
+    : site.info.siteName;
+
+// Canonical URL: production origin + current path (no query string or hash)
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const imageUrl = new URL(image, Astro.site ?? site.url).href;
+const siteUrl = new URL("/", Astro.site ?? site.url).href;
+
+// Breadcrumbs from the page tree: Home › Parent › Current
+const { current, parent } = await getNavigation(Astro.url.pathname);
+const crumbs = [{ name: site.info.siteName, href: "/" }];
+if (!isHome) {
+  if (parent && parent.url !== "/")
+    crumbs.push({ name: parent.title, href: parent.href });
+  crumbs.push({
+    name: title ?? current?.title ?? "",
+    href: Astro.url.pathname,
+  });
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: site.info.siteName,
+      legalName: site.info.legalName,
+      url: siteUrl,
+      logo: new URL(site.seo.logo, siteUrl).href,
+      email: site.info.email,
+      telephone: site.info.telephone,
+      foundingDate: site.info.foundingDate,
+      address: { "@type": "PostalAddress", ...site.info.address },
+      sameAs: site.seo.sameAs,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: site.info.siteName,
+      description: site.info.description,
+      inLanguage: site.lang,
+      publisher: { "@id": `${siteUrl}#organization` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: pageTitle,
+      description,
+      inLanguage: site.lang,
+      isPartOf: { "@id": `${siteUrl}#website` },
+      primaryImageOfPage: imageUrl,
+      breadcrumb: { "@id": `${canonical}#breadcrumb` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonical}#breadcrumb`,
+      itemListElement: crumbs.map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: crumb.name,
+        item: new URL(crumb.href, siteUrl).href,
+      })),
+    },
+  ],
+};
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+{!noindex && <link rel="canonical" href={canonical} />}
+<meta
+  name="robots"
+  content={
+    noindex ? "noindex, follow" : "index, follow, max-image-preview:large"
+  }
+/>
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.info.siteName} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+{site.seo.twitter && <meta name="twitter:site" content={site.seo.twitter} />}
+
+<!-- Icons, manifest, sitemap -->
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content={site.themeColor} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(jsonLd)}
+/>

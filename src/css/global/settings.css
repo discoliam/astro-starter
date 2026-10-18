@@ -1,0 +1,152 @@
+:root {
+  /* Type — Families */
+  --Primary-Font: "Arial";
+  --Secondary-Font: "Georgia";
+
+  /* Responsive Scale — Template (Mobile) */
+  --Template-Page-Width: 440px;
+  --Template-Content-Width: 408px;
+  --Template-Page-Margin: 16px;
+  --Template-Grid-Column-Count: 6;
+  --Template-Grid-Gutter: 16px;
+
+  /* Responsive Scale — Spacing (Mobile) */
+  --Spacing-Standard-Gutter: 16px;
+  --Spacing-Double-Gutter: 32px;
+
+  --Spacing-x1: calc((4 / 16) * 1rem);
+  --Spacing-x2: calc((8 / 16) * 1rem);
+  --Spacing-x3: calc((12 / 16) * 1rem);
+  --Spacing-x4: calc((16 / 16) * 1rem);
+  --Spacing-x5: calc((20 / 16) * 1rem);
+  --Spacing-x6: calc((24 / 16) * 1rem);
+  --Spacing-x7: calc((28 / 16) * 1rem);
+  --Spacing-x8: calc((32 / 16) * 1rem);
+  --Spacing-x9: calc((36 / 16) * 1rem);
+  --Spacing-x10: calc((40 / 16) * 1rem);
+  --Spacing-x11: calc((44 / 16) * 1rem);
+  --Spacing-x12: calc((48 / 16) * 1rem);
+  --Spacing-x13: calc((52 / 16) * 1rem);
+  --Spacing-x14: calc((56 / 16) * 1rem);
+  --Spacing-x15: calc((60 / 16) * 1rem);
+  --Spacing-x16: calc((64 / 16) * 1rem);
+  --Spacing-x20: calc((80 / 16) * 1rem);
+  --Spacing-x24: calc((96 / 16) * 1rem);
+
+  /* Responsive Scale — Type (Mobile) */
+  --Type-Display-XL: calc((34 / 16) * 1rem);
+  --Type-Display-L: calc((30 / 16) * 1rem);
+  --Type-Display-M: calc((24 / 16) * 1rem);
+  --Type-Display-S: calc((20 / 16) * 1rem);
+
+  --Type-Paragraph-L: calc((18 / 16) * 1rem);
+  --Type-Paragraph-Default: calc((16 / 16) * 1rem);
+  --Type-Paragraph-S: calc((14 / 16) * 1rem);
+  --Type-Paragraph-XS: calc((12 / 16) * 1rem);
+
+  /* ==========================================================================
+     Project aliases
+     ========================================================================== */
+
+  /* Palettes */
+  --palette-light: #fff;
+  --palette-mid: #666;
+  --palette-dark: #111;
+
+  --palette-action: #f00;
+  --palette-hover: #00f;
+
+  --palette-success: green;
+  --palette-error: red;
+  --palette-warning: yellow;
+
+  /* Site Colours */
+  --background-color: var(--palette-light);
+  --text-color: var(--palette-dark);
+
+  /* Sizing */
+  --flow: var(--Spacing-Double-Gutter);
+
+  --header-height: calc((98 / 16) * 1rem);
+  --header-spacing: calc((124 / 16) * 1rem);
+
+  /* Page */
+  --gap: var(--Template-Grid-Gutter);
+  --page-padding: var(--Template-Page-Margin);
+  --page-calculated-padding: max(
+    var(--page-padding),
+    calc((100vw - var(--max-width)) / 2)
+  );
+
+  --max-width: 1216px; /* Desktop Template-Content-Width */
+  --half-gap: calc(var(--gap) / 2);
+  --double-gap: var(--Spacing-Double-Gutter);
+  --triple-gap: calc(var(--gap) * 3);
+  --col-width: calc(
+    (100% - ((var(--Template-Grid-Column-Count) - 1) * var(--gap))) /
+      var(--Template-Grid-Column-Count)
+  );
+
+  --header-gap: 100px;
+
+  /* Borders */
+  --border-width: 1px;
+  --border-color: var(--palette-mid);
+  --border: solid var(--border-width) var(--border-color);
+
+  /* Border Radius */
+  --border-radius: var(--Spacing-x2);
+
+  /* A11y */
+  --a11y-outline: 0;
+  --a11y-outline-light: 0;
+
+  /* Type */
+  --typeface-heading: var(--Primary-Font), sans-serif;
+  --typeface-body: var(--Secondary-Font), sans-serif;
+
+  /* Line height */
+  --line-height--heading: 110%;
+  --line-height--paragraph: 1.2;
+  --line-height--body: 1.5;
+
+  /* Transitions */
+  --global-timing: cubic-bezier(0.77, 0, 0.175, 1);
+  --global-duration: 0.4s;
+  --global-transition: var(--global-duration) var(--global-timing);
+
+  /* Aspect Ratios */
+  --ar-square: 1/1;
+  --ar-landscape: 841/473;
+  --ar-portrait: 402/536;
+  --ar-og: 1200/630;
+  --ar-video: 16/9;
+
+  /* Tablet (Figma mode: Tablet) */
+  @media (--mq-tablet-and-up) {
+    --Template-Page-Width: 768px;
+    --Template-Content-Width: 720px;
+    --Template-Page-Margin: 24px;
+    --Template-Grid-Column-Count: 8;
+    --Template-Grid-Gutter: 24px;
+
+    --Spacing-Standard-Gutter: 24px;
+    --Spacing-Double-Gutter: 48px;
+
+    --Type-Display-XL: calc((38 / 16) * 1rem);
+  }
+
+  /* Desktop (Figma mode: Desktop) */
+  @media (--mq-desktop-and-up) {
+    --Template-Page-Width: 1440px;
+    --Template-Content-Width: 1216px;
+    --Template-Page-Margin: 112px;
+    --Template-Grid-Column-Count: 12;
+    --Template-Grid-Gutter: 32px;
+
+    --Spacing-Standard-Gutter: 32px;
+    --Spacing-Double-Gutter: 64px;
+
+    --Type-Display-XL: calc((48 / 16) * 1rem);
+  }
+}

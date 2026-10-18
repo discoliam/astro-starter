@@ -1,0 +1,43 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Seo from "../components/Seo.astro";
+import SmoothScroll from "../components/SmoothScroll.astro";
+import { site } from "../data/site";
+import "../css/style.css";
+
+// MDX pages pass their frontmatter as `frontmatter`; .astro pages pass props directly
+const page = Astro.props.frontmatter ?? Astro.props;
+const { title, excerpt, image, imageAlt, noindex } = page;
+const description = page.description ?? excerpt;
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo
+      title={title}
+      description={description || undefined}
+      image={image}
+      imageAlt={imageAlt}
+      noindex={noindex}
+    />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      Skip to content
+    </a>
+    <Header />
+    <main id="main-content" class="MainContent" tabindex="-1">
+      <slot />
+      <SmoothScroll transition:persist />
+    </main>
+    <Footer />
+  </body>
+</html>

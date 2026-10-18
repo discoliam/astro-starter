@@ -1,0 +1,4 @@
+# Package artifacts
+node_modules/
+dist/
+.astro/

@@ -1,0 +1,24 @@
+.Grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--gap);
+  @media (--mq-tablet-and-up) {
+    grid-template-columns: repeat(12, 1fr);
+    &.Grid--two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+/* Three equal columns from tablet up, e.g. Photography → Do */
+.Grid--thirds {
+  row-gap: var(--gap);
+  align-items: start;
+  @media (--mq-tablet-and-up) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.Grid--mobile {
+  grid-template-columns: repeat(12, 1fr);
+}

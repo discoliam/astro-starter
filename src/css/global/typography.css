@@ -1,0 +1,213 @@
+/* Text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  leading-trim: both;
+  text-edge: cap;
+  font-family: var(--Primary-Font);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-color);
+  margin: 0;
+  text-wrap: balance;
+  text-wrap: pretty;
+  line-height: var(--line-height--heading);
+  color: var(--palette-dark);
+
+  & b,
+  & strong {
+    font-weight: 900;
+  }
+}
+
+h1,
+.h1 {
+  font-size: var(--Type-Display-XL);
+}
+
+h2,
+.h2 {
+  font-size: var(--Type-Display-L);
+}
+
+h3,
+.h3 {
+  font-size: var(--Type-Display-M);
+}
+h4,
+.h4 {
+  font-size: var(--Type-Display-S);
+}
+
+h5,
+.h5 {
+  font-size: var(--Type-Display-S);
+}
+
+h6,
+.h6 {
+  font-size: var(--Type-Paragraph-L);
+}
+
+.p-l {
+  font-size: var(--Type-Paragraph-L);
+}
+.p-m {
+  font-size: var(--Type-Paragraph-S);
+}
+.p-s,
+small {
+  font-size: var(--Type-Paragraph-XS);
+}
+.p-xs {
+  font-size: var(--Type-Paragraph-XS);
+}
+
+.strikethough {
+  text-decoration: line-through;
+}
+
+.is-centered {
+  text-align: center;
+}
+
+
+.Pill,
+.Tag {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  font-family: var(--Secondary-Font);
+  font-size: var(--Type-Paragraph-XS);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: var(--Spacing-x2) var(--Spacing-x3);
+  gap: var(--Spacing-x2);
+  background-color: var(--palette-mid);
+  color: var(--palette-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  appearance: none;
+  border: solid 1px var(--palette-mid);
+  transition: all var(--global-transition);
+}
+
+.TagList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 0.5em;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+
+
+a,
+button {
+  &.Tag,
+  &.Pill {
+    background-color: var(--palette-action);
+    border-color: var(--palette-action);
+    color: var(--palette-dark);
+    &:hover {
+      background-color: var(--palette-mid);
+      border-color: var(--palette-mid);
+      color: var(--palette-light);
+    }
+  }
+  &.Pill--hollow {
+    background-color: transparent;
+    border-color: var(--palette-mid);
+    color: var(--palette-mid);
+    &:hover {
+      background-color: var(--palette-action);
+      border-color: var(--palette-action);
+      color: var(--palette-dark);
+    }
+  }
+}
+
+.Pill {
+  border-radius: 999em;
+}
+
+.Pill--hollow {
+  background-color: transparent;
+  border-color: var(--palette-mid);
+  color: var(--palette-mid);
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+/* UGC */
+.ugc {
+  font-size: var(--Type-Paragraph-Default);
+
+  & > * + * {
+    margin-block-start: 1em;
+  }
+
+  & ul,
+  & ol {
+    margin: 0;
+    padding: 0;
+    padding-inline-start: 1em;
+    margin-block-start: var(--Spacing-Double-Gutter);
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    padding: 0;
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    & li + li {
+      margin-block-start: 0.25em;
+    }
+  }
+
+  /* Blockquote */
+  blockquote {
+    margin: 0;
+    padding: 0;
+    font-family: var(--typeface-body);
+    font-weight: 400;
+    font-style: normal;
+    & p {
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+      font-weight: 400;
+    }
+  }
+
+}
+
+p img {
+  margin-top: var(--Spacing-Double-Gutter);
+}

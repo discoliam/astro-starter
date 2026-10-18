@@ -1,0 +1,29 @@
+{
+  "css.validate": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[twig]": {
+    "editor.defaultFormatter": "mblode.twig-language-2"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "wongjn.php-sniffer"
+  },
+  "editor.tabSize": 2,
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#3445B2",
+    "titleBar.inactiveForeground": "#3445B2",
+    "titleBar.activeBackground": "#beff7b",
+    "titleBar.inactiveBackground": "#beff7b"
+  }
+}

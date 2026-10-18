@@ -1,0 +1,28 @@
+/* Body + HTML */
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--typeface-body);
+  position: relative;
+  font-size: var(--Type-Paragraph-Default);
+  font-weight: 400;
+}
+
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+  touch-action: manipulation;
+}
+
+button {
+  cursor: pointer;
+}

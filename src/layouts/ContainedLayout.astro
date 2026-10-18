@@ -1,0 +1,15 @@
+---
+import Layout from "./Layout.astro";
+
+const { frontmatter, headings } = Astro.props;
+---
+
+<Layout
+  title={frontmatter?.title}
+  description={frontmatter?.excerpt}
+  headings={headings}
+>
+  <div class="Container ContainedLayout">
+    <slot />
+  </div>
+</Layout>

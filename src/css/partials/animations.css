@@ -1,0 +1,140 @@
+:root {
+  --pageLoadDelay: 0.2s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-move-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-appear] {
+  & .AppearFadeIn {
+    opacity: 0;
+  }
+
+  & .AppearFadeMoveIn {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  &.is-visible {
+    & .AppearFadeIn,
+    & .AppearFadeMoveIn {
+      animation-name: fade-in;
+      animation-duration: var(--global-duration);
+      transition-timing-function: var(--global-timing);
+      animation-fill-mode: both;
+      animation-delay: 0s;
+    }
+
+    & .AppearFadeMoveIn {
+      animation-name: fade-move-in;
+    }
+  }
+
+  &.is-visible .Delay:nth-child(1) {
+    animation-delay: 0s;
+  }
+  &.is-visible .Delay:nth-child(2) {
+    animation-delay: var(--pageLoadDelay);
+  }
+  &.is-visible .Delay:nth-child(3) {
+    animation-delay: calc(var(--pageLoadDelay) * 2);
+  }
+  &.is-visible .Delay:nth-child(4) {
+    animation-delay: calc(var(--pageLoadDelay) * 3);
+  }
+  &.is-visible .Delay:nth-child(5) {
+    animation-delay: calc(var(--pageLoadDelay) * 4);
+  }
+  &.is-visible .Delay:nth-child(6) {
+    animation-delay: calc(var(--pageLoadDelay) * 5);
+  }
+  &.is-visible .Delay:nth-child(7) {
+    animation-delay: calc(var(--pageLoadDelay) * 6);
+  }
+  &.is-visible .Delay:nth-child(8) {
+    animation-delay: calc(var(--pageLoadDelay) * 7);
+  }
+  &.is-visible .Delay:nth-child(9) {
+    animation-delay: calc(var(--pageLoadDelay) * 8);
+  }
+  &.is-visible .Delay:nth-child(10) {
+    animation-delay: calc(var(--pageLoadDelay) * 9);
+  }
+  &.is-visible .Delay:nth-child(11) {
+    animation-delay: calc(var(--pageLoadDelay) * 10);
+  }
+  &.is-visible .Delay:nth-child(12) {
+    animation-delay: calc(var(--pageLoadDelay) * 11);
+  }
+  &.is-visible .Delay:nth-child(13) {
+    animation-delay: calc(var(--pageLoadDelay) * 12);
+  }
+  &.is-visible .Delay:nth-child(14) {
+    animation-delay: calc(var(--pageLoadDelay) * 13);
+  }
+  &.is-visible .Delay:nth-child(15) {
+    animation-delay: calc(var(--pageLoadDelay) * 14);
+  }
+  &.is-visible .Delay:nth-child(16) {
+    animation-delay: calc(var(--pageLoadDelay) * 15);
+  }
+  &.is-visible .Delay:nth-child(17) {
+    animation-delay: calc(var(--pageLoadDelay) * 16);
+  }
+  &.is-visible .Delay:nth-child(18) {
+    animation-delay: calc(var(--pageLoadDelay) * 17);
+  }
+  &.is-visible .Delay:nth-child(19) {
+    animation-delay: calc(var(--pageLoadDelay) * 18);
+  }
+  &.is-visible .Delay:nth-child(20) {
+    animation-delay: calc(var(--pageLoadDelay) * 19);
+  }
+  &.is-visible .Delay:nth-child(21) {
+    animation-delay: calc(var(--pageLoadDelay) * 20);
+  }
+  &.is-visible .Delay:nth-child(22) {
+    animation-delay: calc(var(--pageLoadDelay) * 21);
+  }
+  &.is-visible .Delay:nth-child(23) {
+    animation-delay: calc(var(--pageLoadDelay) * 22);
+  }
+  &.is-visible .Delay:nth-child(24) {
+    animation-delay: calc(var(--pageLoadDelay) * 23);
+  }
+  &.is-visible .Delay:nth-child(25) {
+    animation-delay: calc(var(--pageLoadDelay) * 24);
+  }
+  &.is-visible .Delay:nth-child(26) {
+    animation-delay: calc(var(--pageLoadDelay) * 25);
+  }
+  &.is-visible .Delay:nth-child(27) {
+    animation-delay: calc(var(--pageLoadDelay) * 26);
+  }
+  &.is-visible .Delay:nth-child(28) {
+    animation-delay: calc(var(--pageLoadDelay) * 27);
+  }
+  &.is-visible .Delay:nth-child(29) {
+    animation-delay: calc(var(--pageLoadDelay) * 28);
+  }
+  &.is-visible .Delay:nth-child(30) {
+    animation-delay: calc(var(--pageLoadDelay) * 29);
+  }
+}

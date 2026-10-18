@@ -1,0 +1,72 @@
+/* Main Content */
+.MainContent {
+  display: block;
+  width: 100%;
+}
+
+a {
+  color: var(--palette-dark);
+  transition: all var(--global-transition);
+  text-decoration: none;
+  text-decoration-color: transparent;
+  cursor: pointer;
+  & svg {
+    transition: fill var(--global-transition);
+  }
+  &:hover {
+    outline: 0;
+    color: var(--palette-action);
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+p {
+  margin-block-start: 0;
+}
+
+p + p,
+p + ul,
+p + ol,
+p + blockquote,
+ul + p,
+ul + ul,
+ul + ol,
+ul + blockquote,
+ol + p,
+ol + ul,
+ol + ol,
+ol + blockquote,
+blockquote + p,
+blockquote + ul,
+blockquote + ol,
+blockquote + blockquote {
+  margin-block-start: 0.5em;
+}
+
+/* Media */
+img,
+video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+a img {
+  outline: 0;
+}
+
+mark {
+  color: var(--palette-light);
+  background-color: transparent;
+}
+
+::selection {
+  background-color: var(--palette-action);
+  color: var(--palette-dark);
+}
+
+.TextBlock {
+  max-width: 1008px;
+}

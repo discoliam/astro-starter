@@ -1,0 +1,65 @@
+---
+import { site } from "../data/site";
+
+import { buildDate } from "../utils/build-date";
+
+const year = buildDate.getFullYear();
+
+// Build time as "HH:MM:SS - DD Mon YYYY" (UK time)
+const parts = Object.fromEntries(
+  new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+    .formatToParts(buildDate)
+    .map(({ type, value }) => [type, value]),
+);
+const updated = `${parts.hour}:${parts.minute}:${parts.second} - ${parts.day} ${parts.month} ${parts.year}`;
+---
+
+<footer class="Footer" id="site-footer" data-animate>
+  <div class="Container FooterContainer">
+    <p class="Footer__SiteName">{site.info.siteName}</p>
+    <p class="Footer__Updated">
+      Updated: <time datetime={buildDate.toISOString()}>{updated}</time>
+    </p>
+    <div class="Footer__Legal">
+      <p class="Footer__Copy">
+        &copy; {year}&nbsp;
+        {site.info.legalName}
+      </p>
+
+      <p class="Footer__Credit">
+        Website by{" "}
+        <a href="https://discoliam.com" target="_blank" rel="noopener">
+          Discoliam
+        </a>
+        .
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .Footer{
+    margin-top: var(--Spacing-x8);
+    padding: var(--Spacing-x8) 0;
+    background: var(--palette-dark);
+    color: var(--palette-light);
+
+    & a {
+      color: var(--palette-action);
+      &:hover{
+        color: var(--palette-hover);
+      }
+    }
+  }
+
+
+</style>

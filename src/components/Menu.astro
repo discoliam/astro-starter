@@ -1,0 +1,10 @@
+---
+import { getFullMenu } from "../utils/navigation";
+import NavItem from "./NavItem.astro";
+
+const menuTree = await getFullMenu();
+---
+
+<ul class="Menu">
+  {menuTree.map((item) => <NavItem item={item} />)}
+</ul>

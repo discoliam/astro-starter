@@ -1,0 +1,104 @@
+---
+const { item } = Astro.props;
+import { getNavigation } from "../utils/navigation";
+
+const { parent, current } = await getNavigation(Astro.url.pathname);
+const hasChildren = item.children && item.children.length > 0;
+const isActive = item.url === current?.url || item.url === parent?.url;
+
+// Group children by their `group` frontmatter (e.g. Visual / Verbal Identity),
+// keeping nav order. Ungrouped children fall into an untitled group.
+const groups: { title: string; items: any[] }[] = [];
+for (const child of item.children ?? []) {
+  const title: string = child.group || "";
+  const existing = groups.find((g) => g.title === title);
+  if (existing) existing.items.push(child);
+  else groups.push({ title, items: [child] });
+}
+const isGrouped = groups.some((g) => g.title);
+---
+
+<li class=`NavItem ${hasChildren ? "NavItem--has-children" : ""}`>
+  {hasChildren ? (
+    <div class="NavItem__ChildWrap">
+      <a
+        href={item.href}
+        class=`NavItem__Link ${isActive ? "NavItem__Link--active" : ""}`
+        aria-current={item.url === current?.url ? "page" : undefined}
+      >
+        {item.title}
+      </a>
+      <button
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-label={`Toggle ${item.title} submenu`}
+      >
+        Open
+      </button>
+    </div>
+  ) : (
+    <a
+      href={item.href}
+      class=`NavItem__Link ${isActive ? "NavItem__Link--active" : ""}`
+      aria-current={item.url === current?.url ? "page" : undefined}
+    >
+      {item.title}
+    </a>
+  )}
+
+  {hasChildren &&
+    (isGrouped ? (
+      <ul class="NavItem__Dropdown NavItem__Dropdown--grouped">
+        {groups.map((group) => (
+          <li class="NavItem__Group">
+            {group.title && (
+              <span class="NavItem__GroupTitle">{group.title}</span>
+            )}
+            <ul class="NavItem__GroupLinks">
+              {group.items.map((child) => (
+                <Astro.self item={child} />
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <ul class="NavItem__Dropdown">
+        {item.children.map((child: any) => (
+          <Astro.self item={child} />
+        ))}
+      </ul>
+    ))}
+</li>
+
+<style>
+  .NavItem__ChildWrap {
+    display: block;
+    height: 100%;
+
+    a.NavItem__Link svg {
+      transition: all var(--global-transition);
+    }
+
+    &:hover a.NavItem__Link svg {
+      transform: rotate(-180deg);
+    }
+  }
+
+  a.NavItem__Link {
+    font-size: var(--Type-Paragraph-Default);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    color: var(--palette-light);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 0.5em;
+    &:hover,
+    &.NavItem__Link--active {
+      color: var(--palette-hover);
+    }
+  }
+</style>

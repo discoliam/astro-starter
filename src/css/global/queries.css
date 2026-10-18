@@ -1,0 +1,9 @@
+/* media queries */
+/* Mobile, Tablet & Desktop match the Figma Responsive Scale modes (Template-Page-Width) */
+@custom-media --mq-mobile-and-up screen and (min-width: 440px);
+@custom-media --mq-tablet-and-up screen and (min-width: 768px);
+@custom-media --mq-netbook-and-up screen and (min-width: 1194px); /* Not a Figma mode */
+@custom-media --mq-desktop-and-up screen and (min-width: 1440px);
+
+/* Max Width */
+/* @custom-media --mq-phablet-and-down screen and (max-width: 559x); */

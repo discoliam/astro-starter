@@ -1,0 +1,30 @@
+.Container {
+  container-type: inline-size;
+  width: calc(100% - var(--page-padding) - var(--page-padding));
+  margin-left: var(--page-padding);
+  margin-right: var(--page-padding);
+  position: relative;
+  z-index: 2;
+  @media (--mq-tablet-and-up) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--max-width);
+  }
+}
+
+/* Tablet Only */
+.ContainerTabletOnly {
+  display: block;
+  width: 100%;
+  position: relative;
+  @media (--mq-tablet-and-up) {
+    width: calc(100% - var(--page-padding) - var(--page-padding));
+    margin-left: var(--page-padding);
+    margin-right: var(--page-padding);
+  }
+  @media (--mq-tablet-and-up) {
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100% - var(--page-padding) - var(--page-padding));
+  }
+}

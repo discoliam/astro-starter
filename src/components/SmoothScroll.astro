@@ -1,0 +1,67 @@
+<script>
+  import Lenis from "lenis";
+
+  // We keep these in the module scope so they persist across navigations
+  let lenis;
+  let rafId;
+
+  function init() {
+    // Only initialize if it doesn't exist
+    if (!lenis) {
+      lenis = new Lenis({
+        duration: 1.2,
+        // Anchors are handled below — Lenis's built-in `anchors` option doesn't
+        // cancel the click, so the browser + Astro router scroll at the same time
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+      // console.log("Lenis Initialized and Persisted");
+    }
+  }
+
+  // Find the element for a hash; getElementById copes with ids starting with a digit
+  function getHashTarget(hash) {
+    if (!hash || hash === "#") return null;
+    return document.getElementById(decodeURIComponent(hash.slice(1)));
+  }
+
+  // Smooth-scroll same-page anchor links. Capture phase so we run before
+  // Astro's router, which skips links whose click is already prevented.
+  document.addEventListener(
+    "click",
+    (event) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = event.target.closest?.("a[href*='#']");
+      if (!link) return;
+
+      const url = new URL(link.href);
+      if (url.origin !== location.origin || url.pathname !== location.pathname)
+        return;
+
+      const target = getHashTarget(url.hash);
+      if (!target) return;
+
+      event.preventDefault();
+      // Respects the target's scroll-margin-top (clears the sticky header)
+      lenis?.scrollTo(target);
+      history.pushState(history.state, "", url.hash);
+    },
+    { capture: true },
+  );
+
+  // Initial load
+  init();
+
+  // On page swap: jump to the hash target if there is one, otherwise the top
+  document.addEventListener("astro:after-swap", () => {
+    const target = getHashTarget(location.hash);
+    lenis?.scrollTo(target ?? 0, { immediate: true });
+  });
+</script>
