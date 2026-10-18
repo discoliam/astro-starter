@@ -1,14 +1,11 @@
 ---
 import Layout from "./Layout.astro";
 
+// Pass all frontmatter through so Layout/Seo see title, excerpt, image, noindex, etc.
 const { frontmatter, headings } = Astro.props;
 ---
 
-<Layout
-  title={frontmatter?.title}
-  description={frontmatter?.excerpt}
-  headings={headings}
->
+<Layout frontmatter={frontmatter} headings={headings}>
   <div class="Container ContainedLayout">
     <slot />
   </div>

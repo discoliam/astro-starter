@@ -31,7 +31,41 @@ npm run dev
 
 ## Project Structure
 
-TODO
+```text
+public/                 Static files served as-is: favicons, app icons, default share image
+src/
+├── components/
+│   ├── Header.astro        Site header, desktop nav and mobile slide-in menu
+│   ├── Menu.astro          Full nested menu (used in the mobile nav)
+│   ├── NavItem.astro       Recursive nav item; groups children by `group` frontmatter
+│   ├── Footer.astro        Footer with site name, build timestamp and legal line
+│   ├── Seo.astro           All <head> SEO tags and JSON-LD structured data
+│   └── SmoothScroll.astro  Lenis smooth scroll, persisted across view transitions
+├── css/
+│   ├── style.css           Entry point: imports everything below
+│   ├── global/             Reset, design tokens (settings.css), breakpoints, base styles
+│   └── partials/           Container, block and animation helpers
+├── data/site.js        Site-wide settings: URL, name, description, contact, social, colours
+├── layouts/
+│   ├── Layout.astro          Base HTML document: <head>, header, main, footer
+│   └── ContainedLayout.astro Layout with content wrapped in a centred `.Container`
+├── pages/
+│   ├── *.mdx               Content pages: routes and navigation come from these
+│   ├── 404.astro           Not-found page (noindex)
+│   ├── robots.txt.js       Generates /robots.txt
+│   └── site.webmanifest.js Generates /site.webmanifest
+└── utils/
+    ├── navigation.js       Builds menus, breadcrumbs and page relationships from src/pages
+    ├── build-date.js       Single build timestamp shared by every page
+    └── helpers.js          slugify, cleanName, formatBytes
+```
+
+### Layouts
+
+- **`ContainedLayout.astro`**: the default for content pages. It wraps the page in `.Container`, which is full width minus the page margin on mobile and centred at `--max-width` from tablet up.
+- **`Layout.astro`**: full-bleed. Use it directly for pages that manage their own containers.
+
+Both layouts accept the same frontmatter. MDX pages pass it as `frontmatter`; `.astro` pages pass it as props, e.g. `<Layout title="…" description="…" noindex>`.
 
 ## Pages & Navigation
 
@@ -39,7 +73,7 @@ Pages live in `src/pages/` as `.mdx` files. Navigation is generated from the fil
 
 ```mdx
 ---
-layout: ../layouts/Layout.astro # ../../layouts/… for pages in a subfolder
+layout: ../layouts/ContainedLayout.astro # ../../layouts/… for pages in a subfolder
 title: "Colour" # Page title and nav label
 excerpt: "…" # Meta description, ~150–160 characters (falls back to site description)
 order: 2 # Sort position in nav (default: 99)
@@ -78,6 +112,35 @@ Each page should have one `# Heading` (the `<h1>`), followed by `##`/`###` in or
 - **Don't put comments in the import block.** Any line between imports that isn't `import`/`export` ends the block and breaks the imports below. Use `{/* … */}` after the imports instead.
 
 ## CSS & Design Tokens
+
+All CSS goes through PostCSS (`postcss.config.cjs`): `postcss-import`, then `postcss-custom-media`, then `postcss-preset-env` (stage 1). Native nesting works everywhere, including component `<style>` blocks.
+
+- **Entry point:** `src/css/style.css` is imported once by `Layout.astro`. Add new global files there.
+- **Tokens:** `src/css/global/settings.css` holds every custom property. Don't use a variable that isn't defined there.
+  - *Figma scale* (mobile-first, overridden at tablet and desktop): `--Spacing-x1`…`--Spacing-x24`, `--Type-Display-*`, `--Type-Paragraph-*`, `--Template-*` (page width, margin, columns, gutter), `--Primary-Font`/`--Secondary-Font`.
+  - *Project aliases*: `--palette-light|mid|dark|action|hover` plus success/error/warning, `--max-width`, `--gap`, `--page-padding`, `--header-height`, `--border`, `--global-transition`, aspect ratios (`--ar-*`).
+  - Use the `--palette-*` aliases for colour, and change the values in `settings.css` per project.
+- **Breakpoints:** custom media from `src/css/global/queries.css`, available in any file:
+
+  | Query                 | Min width |
+  | :-------------------- | :-------- |
+  | `--mq-mobile-and-up`  | 440px     |
+  | `--mq-tablet-and-up`  | 768px     |
+  | `--mq-netbook-and-up` | 1194px    |
+  | `--mq-desktop-and-up` | 1440px    |
+
+  ```css
+  .Thing {
+    padding: var(--Spacing-x4);
+    @media (--mq-tablet-and-up) {
+      padding: var(--Spacing-x8);
+    }
+  }
+  ```
+
+- **Layout helpers:** `.Container` (page-width wrapper), `.Grid` (1 column on mobile, 12 from tablet; `.Grid--two-cols`, `.Grid--thirds`).
+- **Type helpers:** `.h1`–`.h6` style any element like a heading; also `.p-l`, `.p-m`, `.p-s`, `.p-xs`.
+- **Naming:** BEM-style PascalCase: `Block`, `Block__Element`, `Block--modifier`.
 
 ## Formatting & Linting
 

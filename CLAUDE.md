@@ -20,7 +20,7 @@ Static Astro 7 site, pages written as MDX. Integrations: `@astrojs/mdx`, `@astro
 
 ### Pages and navigation
 
-- Pages are `.mdx` files in `src/pages/` that set `layout:` in frontmatter (`../layouts/Layout.astro`). MDX passes frontmatter to the layout as `Astro.props.frontmatter`; `.astro` pages (e.g. `404.astro`) pass props directly. `Layout.astro` handles both.
+- Pages are `.mdx` files in `src/pages/` that set `layout:` in frontmatter, usually `../layouts/ContainedLayout.astro` (wraps content in `.Container` and forwards `frontmatter` to `Layout.astro`). Wrapper layouts must forward the whole `frontmatter` object, not individual fields, or SEO fields like `image`/`noindex` are lost. MDX passes frontmatter to the layout as `Astro.props.frontmatter`; `.astro` pages (e.g. `404.astro`) pass props directly. `Layout.astro` handles both.
 - URLs always end in `/` (`trailingSlash: "always"`). Navigation items have `url` (no slash, used as the tree key) and `href` (with slash, used in links). Hand-written internal links should include the trailing slash.
 - Navigation has no config — it's derived from the file tree. `src/utils/navigation.js` uses `import.meta.glob("../pages/**/*.{astro,md,mdx}", { eager: true })` to read every page's frontmatter, then builds menus:
   - `getFullMenu()` → nested tree (mobile `Menu.astro`)
